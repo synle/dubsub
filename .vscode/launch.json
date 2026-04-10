@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "DubSub: Auto-transcribe",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/dubsub.py",
+      "args": [
+        "--input", "${workspaceFolder}/input/sample.mp4"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
+    },
+    {
+      "name": "DubSub: With subtitles",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/dubsub.py",
+      "args": [
+        "--input", "${workspaceFolder}/input/sample.mp4",
+        "--subs", "${workspaceFolder}/input/sample.srt"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
+    },
+    {
+      "name": "DubSub: Custom args",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/dubsub.py",
+      "args": "${input:dubsubArgs}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "dubsubArgs",
+      "type": "promptString",
+      "description": "Enter dubsub args (e.g. --input video.mp4 --subs subs.srt)"
+    }
+  ]
+}
