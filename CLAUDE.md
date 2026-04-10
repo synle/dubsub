@@ -13,6 +13,7 @@ A local AI-powered video dubbing pipeline. Takes foreign-language video (default
 - **Piper TTS** — local text-to-speech synthesis
 - **pydub** — audio manipulation (speed adjustment, mixing)
 - **pysubs2** — subtitle file parsing (SRT, ASS, SSA)
+- **FastAPI + Uvicorn** — web UI for browser-based dubbing
 
 ## Architecture
 
@@ -26,6 +27,8 @@ The pipeline is split into 5 sequential stages in `pipeline/`:
 
 `dubsub.py` is the CLI entry point that orchestrates these stages.
 
+`webui.py` is the web UI entry point — a single-file FastAPI app with embedded HTML. It runs the same pipeline stages in a background thread, captures stdout via `OutputCapture` to stream real-time progress to the browser using SSE (Server-Sent Events), and serves a download link when done. Uploaded files go to `uploads/`, output to `output/` as usual.
+
 ## Key Data Type
 
 `Segment(start: float, end: float, text: str)` — defined in `transcribe.py`, used throughout the pipeline. Timestamps are in seconds.
@@ -33,8 +36,12 @@ The pipeline is split into 5 sequential stages in `pipeline/`:
 ## Running
 
 ```bash
+# CLI
 uv run python dubsub.py --input video.mp4                    # auto-transcribe
 uv run python dubsub.py --input video.mp4 --subs subs.srt    # with subtitles
+
+# Web UI
+uv run python webui.py                                        # opens at http://localhost:8000
 
 # Or activate venv first:
 source .venv/bin/activate
@@ -55,3 +62,9 @@ uv sync             # reinstall from pyproject.toml
 - TTS voice models stored in `models/piper/`
 - Working/temp files go in `output/work/`
 - Each pipeline module prints progress with `[module_name]` prefix (e.g., `[transcribe]`, `[translate]`)
+- `webui.py` is a self-contained single file (HTML embedded as a string, no templates dir)
+- Uploaded files go to `uploads/<job_id>/`, working files to `output/work/<job_id>/`
+
+## Keeping This File Updated
+
+When making significant changes (new entry points, new pipeline stages, new dependencies, architectural shifts), update this CLAUDE.md file so it stays accurate. This file is the primary context for AI-assisted development — stale info here leads to wrong assumptions in future sessions.

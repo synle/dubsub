@@ -89,6 +89,16 @@ uv run python dubsub.py --input drama.avi --src-lang ko --dest-lang en
 
 Output is saved to `output/<filename>_dubbed.mp4`.
 
+### 3. Or use the Web UI
+
+If you prefer a browser interface over the command line:
+
+```bash
+uv run python webui.py
+```
+
+Open **http://localhost:8000** — upload your video, pick languages, and hit Start. Progress streams in real time; download the result when it's done.
+
 ## Supported Video Formats
 
 DubSub uses ffmpeg under the hood, so it supports any format ffmpeg can read — which is essentially everything:
@@ -209,6 +219,7 @@ uv run pytest tests/ -v
 ```
 dubsub/
 ├── dubsub.py              # CLI entry point — orchestrates the pipeline
+├── webui.py               # Web UI (FastAPI) — browser-based dubbing
 ├── pipeline/
 │   ├── extract.py         # Extract audio from video (ffmpeg)
 │   ├── transcribe.py      # Speech-to-text (Whisper) + subtitle parsing
@@ -255,7 +266,7 @@ This is planned for a future version. Contributions welcome.
 - Speaker diarization (who is talking) for multi-voice dubbing
 - Voice cloning to match character voice characteristics
 - Real-time / streaming mode for live content
-- GUI / web interface
+- ~~GUI / web interface~~ (done — `webui.py`)
 - Batch processing for full series
 
 ## License
