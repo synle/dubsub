@@ -257,7 +257,7 @@ HTML_PAGE = """\
   .tagline { color: var(--muted); margin-bottom: 1.8rem; font-size: 0.95rem; }
   .form-group { margin-bottom: 1rem; }
   label { display: block; margin-bottom: 0.3rem; font-size: 0.85rem; color: var(--muted); }
-  input[type="file"], select {
+  input[type="file"], input[type="text"], input:not([type]), select {
     width: 100%; padding: 0.55rem 0.6rem;
     background: var(--surface); border: 1px solid var(--border);
     color: var(--text); border-radius: 6px; font-size: 0.9rem;
@@ -322,8 +322,36 @@ HTML_PAGE = """\
     <div class="row">
       <div class="form-group">
         <label for="src_lang">Source language</label>
-        <select id="src_lang" name="src_lang">
-          <option value="ja" selected>Japanese</option>
+        <input id="src_lang" name="src_lang" list="src-langs" value="ja" placeholder="e.g. ja">
+        <datalist id="src-langs">
+          <option value="ja">Japanese</option>
+          <option value="zh">Chinese</option>
+          <option value="ko">Korean</option>
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="es">Spanish</option>
+          <option value="pt">Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="it">Italian</option>
+          <option value="ar">Arabic</option>
+          <option value="hi">Hindi</option>
+          <option value="th">Thai</option>
+          <option value="vi">Vietnamese</option>
+          <option value="id">Indonesian</option>
+          <option value="tr">Turkish</option>
+          <option value="pl">Polish</option>
+          <option value="nl">Dutch</option>
+          <option value="sv">Swedish</option>
+          <option value="uk">Ukrainian</option>
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label for="dest_lang">Destination language</label>
+        <input id="dest_lang" name="dest_lang" list="dest-langs" value="en" placeholder="e.g. en">
+        <datalist id="dest-langs">
+          <option value="en">English</option>
+          <option value="ja">Japanese</option>
           <option value="zh">Chinese</option>
           <option value="ko">Korean</option>
           <option value="fr">French</option>
@@ -333,21 +361,16 @@ HTML_PAGE = """\
           <option value="ru">Russian</option>
           <option value="it">Italian</option>
           <option value="ar">Arabic</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="dest_lang">Destination language</label>
-        <select id="dest_lang" name="dest_lang">
-          <option value="en" selected>English</option>
-          <option value="ja">Japanese</option>
-          <option value="zh">Chinese</option>
-          <option value="ko">Korean</option>
-          <option value="fr">French</option>
-          <option value="de">German</option>
-          <option value="es">Spanish</option>
-          <option value="pt">Portuguese</option>
-          <option value="ru">Russian</option>
-        </select>
+          <option value="pl">Polish</option>
+          <option value="uk">Ukrainian</option>
+          <option value="vi">Vietnamese</option>
+          <option value="tr">Turkish</option>
+          <option value="nl">Dutch</option>
+          <option value="cs">Czech</option>
+          <option value="el">Greek</option>
+          <option value="sv">Swedish</option>
+          <option value="da">Danish</option>
+        </datalist>
       </div>
     </div>
     <div class="row">
