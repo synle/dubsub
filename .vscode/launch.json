@@ -38,6 +38,49 @@
       "console": "integratedTerminal",
       "justMyCode": false,
       "python": "${workspaceFolder}/.venv/bin/python"
+    },
+    {
+      "name": "Web UI",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/webui.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
+    },
+    {
+      "name": "Tests: All",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["tests/", "-v"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
+    },
+    {
+      "name": "Tests: Web UI only",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["tests/test_webui.py", "-v"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
+    },
+    {
+      "name": "Tests: Current file",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["${file}", "-v"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python"
     }
   ],
   "inputs": [
