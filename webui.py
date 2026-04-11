@@ -266,6 +266,13 @@ HTML_PAGE = """\
   select { appearance: auto; }
   .row { display: flex; gap: 1rem; }
   .row > .form-group { flex: 1; }
+  .hint {
+    font-size: 0.78rem; color: #666; margin-top: 0.3rem;
+  }
+  .hint code {
+    background: var(--surface); padding: 0.15rem 0.4rem; border-radius: 3px;
+    font-size: 0.78rem;
+  }
   .range-wrap { display: flex; align-items: center; gap: 0.6rem; }
   .range-wrap input[type="range"] { flex: 1; accent-color: var(--accent); }
   .range-wrap .val {
@@ -367,12 +374,19 @@ HTML_PAGE = """\
           <option value="tr">Turkish</option>
           <option value="nl">Dutch</option>
           <option value="cs">Czech</option>
+          <option value="fi">Finnish</option>
           <option value="el">Greek</option>
-          <option value="sv">Swedish</option>
+          <option value="hu">Hungarian</option>
           <option value="da">Danish</option>
+          <option value="no">Norwegian</option>
+          <option value="sv">Swedish</option>
+          <option value="ro">Romanian</option>
+          <option value="ka">Georgian</option>
+          <option value="is">Icelandic</option>
         </datalist>
       </div>
     </div>
+    <p class="hint">Language pair must be set up first: <code>./setup.sh &lt;src&gt; &lt;dest&gt;</code></p>
     <div class="row">
       <div class="form-group">
         <label for="whisper_model">Whisper model</label>
