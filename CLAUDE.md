@@ -43,6 +43,10 @@ uv run python dubsub.py --input video.mp4 --subs subs.srt    # with subtitles
 # Web UI
 uv run python webui.py                                        # opens at http://localhost:8000
 
+# Tests
+uv run pytest tests/ -v                                       # all tests
+uv run pytest tests/test_webui.py -v                          # web UI tests only
+
 # Or activate venv first:
 source .venv/bin/activate
 python dubsub.py --input video.mp4
@@ -64,6 +68,20 @@ uv sync             # reinstall from pyproject.toml
 - Each pipeline module prints progress with `[module_name]` prefix (e.g., `[transcribe]`, `[translate]`)
 - `webui.py` is a self-contained single file (HTML embedded as a string, no templates dir)
 - Uploaded files go to `uploads/<job_id>/`, working files to `output/work/<job_id>/`
+
+## CI / GitHub Actions
+
+Two workflows in `.github/workflows/`:
+
+- **`ci.yml`** — runs on push to `main`/`master` + manual trigger (`workflow_dispatch`). Installs uv, ffmpeg, deps, runs `pytest`.
+- **`pr.yml`** — runs on PRs targeting `main`/`master`. Same steps. PRs show pass/fail before merge.
+
+## VS Code
+
+`.vscode/launch.json` has debug configs for:
+- CLI (auto-transcribe, with subtitles, custom args)
+- Web UI (`webui.py`)
+- Tests (all, web UI only, current file)
 
 ## Keeping This File Updated
 

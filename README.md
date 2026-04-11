@@ -211,8 +211,16 @@ Options:
 ## Running Tests
 
 ```bash
-uv run pytest tests/ -v
+uv run pytest tests/ -v              # all tests
+uv run pytest tests/test_webui.py -v # web UI API tests only
 ```
+
+## CI / GitHub Actions
+
+Tests run automatically via GitHub Actions:
+
+- **On push to main** — installs deps, runs full test suite. Can also be triggered manually from the Actions tab.
+- **On pull requests to main** — same checks, shown as PR status before merge.
 
 ## Project Structure
 
@@ -226,7 +234,12 @@ dubsub/
 │   ├── translate.py       # Text translation (Argos Translate)
 │   ├── synthesize.py      # Text-to-speech + voice catalog (Piper TTS)
 │   └── compose.py         # Final video assembly (ffmpeg)
-├── tests/                 # Unit tests (pytest)
+├── tests/                 # Unit tests (pytest + httpx)
+├── .github/workflows/
+│   ├── ci.yml             # CI on push to main + manual trigger
+│   └── pr.yml             # PR checks on pull requests to main
+├── .vscode/
+│   └── launch.json        # Debug configs (CLI, Web UI, tests)
 ├── models/
 │   └── piper/             # TTS voice models (auto-downloaded)
 ├── output/                # Default output directory
