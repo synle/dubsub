@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.1.0)'
+        required: true
+        default: 'v0.0.0'
+      notes:
+        description: 'Release notes (markdown)'
+        required: false
+        default: 'Manual release.'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install dependencies
+        run: uv sync --group dev
+
+      - name: Run tests
+        run: uv run pytest tests/ -v
+
+      - name: Package source
+        run: |
+          mkdir -p release-artifacts
+          tar -czf release-artifacts/dubsub-${{ github.event.inputs.tag }}-source.tar.gz \
+            --exclude='.git' --exclude='.venv' --exclude='__pycache__' --exclude='*.pyc' \
+            --exclude='output' --exclude='uploads' --exclude='models' \
+            dubsub.py webui.py pipeline tests pyproject.toml setup.sh README.md CLAUDE.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          name: ${{ github.event.inputs.tag }}
+          body: ${{ github.event.inputs.notes }}
+          files: release-artifacts/*
+          draft: false
+          prerelease: false
