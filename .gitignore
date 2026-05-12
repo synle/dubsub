@@ -34,3 +34,10 @@ Thumbs.db
 
 # Patch artifacts
 *.patch
+
+# Coverage artifacts
+.coverage
+coverage.xml
+coverage.json
+coverage.lcov
+htmlcov/
