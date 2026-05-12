@@ -1,6 +1,6 @@
 [project]
 name = "dubsub"
-version = "0.1.1"
+version = "0.1.2"
 description = "Local AI-powered video dubbing pipeline"
 requires-python = ">=3.12"
 dependencies = [
